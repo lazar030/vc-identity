@@ -1,0 +1,31 @@
+<section class="p-8 flex flex-col gap-4" data-testid="identity-list">
+  <header class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-blue-600" data-testid="identity-list-title">
+      Identities
+    </h2>
+    <button mat-flat-button (click)="reload()" data-testid="identity-list-refresh">
+      Refresh
+    </button>
+  </header>
+
+  @if (loading()) {
+    <p data-testid="identity-list-loading">Loading…</p>
+  } @else if (error()) {
+    <p class="text-red-600" data-testid="identity-list-error">{{ error() }}</p>
+  } @else {
+    <ul class="flex flex-col gap-2" data-testid="identity-list-items">
+      @for (identity of identities(); track identity.id) {
+        <li
+          class="rounded border border-gray-200 p-4"
+          [attr.data-testid]="'identity-list-row-' + identity.id"
+        >
+          <span class="font-medium">{{ identity.name }}</span>
+          <span class="text-gray-500"> · {{ identity.email }}</span>
+          <span class="ml-2 text-sm uppercase text-gray-400">{{ identity.status }}</span>
+        </li>
+      } @empty {
+        <li data-testid="identity-list-empty">No identities yet.</li>
+      }
+    </ul>
+  }
+</section>

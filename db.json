@@ -1,0 +1,28 @@
+{
+  "identities": [
+    {
+      "id": "1",
+      "name": "Ada Lovelace",
+      "email": "ada.lovelace@example.com",
+      "did": "did:example:0001-ada",
+      "status": "active",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Alan Turing",
+      "email": "alan.turing@example.com",
+      "did": "did:example:0002-alan",
+      "status": "pending",
+      "createdAt": "2026-02-02T10:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Grace Hopper",
+      "email": "grace.hopper@example.com",
+      "did": "did:example:0003-grace",
+      "status": "revoked",
+      "createdAt": "2026-03-15T14:45:00.000Z"
+    }
+  ]
+}
