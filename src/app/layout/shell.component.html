@@ -1,0 +1,23 @@
+<mat-toolbar class="flex gap-4" data-testid="layout-shell-toolbar">
+  <span class="font-semibold">VC Identity</span>
+
+  <nav class="flex gap-2" aria-label="Main">
+    <a *vcCan="'users.read'" mat-button routerLink="/users" routerLinkActive="font-bold"
+       data-testid="layout-nav-users-link">Users</a>
+  </nav>
+
+  <span class="flex-1"></span>
+
+  @if (auth.user(); as user) {
+    <span class="text-sm" data-testid="layout-current-user">
+      {{ user.firstName }} {{ user.lastName }} · {{ user.roleId }}
+    </span>
+  }
+  <button mat-stroked-button (click)="auth.logout()" data-testid="layout-logout-button">
+    Log out
+  </button>
+</mat-toolbar>
+
+<main class="p-6">
+  <router-outlet />
+</main>
