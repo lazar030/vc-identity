@@ -1,0 +1,27 @@
+{
+  "roles": [
+    {
+      "id": "admin",
+      "name": "Administrator",
+      "capabilities": ["users.read", "users.create", "users.update", "users.delete", "roles.read"]
+    },
+    {
+      "id": "manager",
+      "name": "Manager",
+      "capabilities": ["users.read"]
+    },
+    {
+      "id": "agent",
+      "name": "Agent",
+      "capabilities": []
+    }
+  ],
+  "users": [
+    { "id": "1", "firstName": "Ana", "lastName": "Admin", "email": "admin@vc.test", "roleId": "admin", "status": "active" },
+    { "id": "2", "firstName": "Marko", "lastName": "Manager", "email": "manager@vc.test", "roleId": "manager", "status": "active" },
+    { "id": "3", "firstName": "Ivana", "lastName": "Agent", "email": "agent@vc.test", "roleId": "agent", "status": "active" },
+    { "id": "4", "firstName": "Luca", "lastName": "Rossi", "email": "luca.rossi@vc.test", "roleId": "agent", "status": "active" },
+    { "id": "5", "firstName": "Giulia", "lastName": "Bianchi", "email": "giulia.bianchi@vc.test", "roleId": "agent", "status": "suspended" },
+    { "id": "6", "firstName": "Stefan", "lastName": "Petrović", "email": "stefan.petrovic@vc.test", "roleId": "manager", "status": "invited" }
+  ]
+}
