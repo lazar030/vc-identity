@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CanDirective } from '../../../shared/directives/can.directive';
-import { UsersFacade } from '../data-access/users.facade';
+import { UsersFacade } from '../services/users.facade';
 
 @Component({
   selector: 'vc-users-page',

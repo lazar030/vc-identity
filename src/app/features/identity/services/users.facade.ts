@@ -4,9 +4,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, catchError, map, of, switchMap, tap } from 'rxjs';
 
 import { UsersApi } from './users.api';
-import { AuthStore } from '../../../core/auth/auth.store';
+import { AuthStore } from '../../../core/services/auth.store';
 import { User } from '../../../core/models/identity.models';
-import { LoadState, toListViewState } from '../../../shared/data-access/load-state';
+import { LoadState, toListViewState } from '../../../shared/services/load-state';
 
 /** Provided per page (not root): its state lives and dies with the screen. */
 @Injectable()

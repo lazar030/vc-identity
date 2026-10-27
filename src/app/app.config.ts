@@ -6,8 +6,8 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { routes } from './app.routes';
-import { authInterceptor } from './core/http/auth.interceptor';
-import { AuthStore } from './core/auth/auth.store';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthStore } from './core/services/auth.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [

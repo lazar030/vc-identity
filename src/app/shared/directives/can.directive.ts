@@ -2,7 +2,7 @@ import {
   Directive, TemplateRef, ViewContainerRef,
   computed, effect, inject, input,
 } from '@angular/core';
-import { AuthStore } from '../../core/auth/auth.store';
+import { AuthStore } from '../../core/services/auth.store';
 import { Capability } from '../../core/models/identity.models';
 
 /**
