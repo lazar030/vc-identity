@@ -13,6 +13,7 @@ Rules:
 - Every interactive element and every UI state root gets a test id.
 - Test ids never change for styling reasons; they are part of the component's contract.
 - Tests select by data-testid first, then by role/label. Never by CSS class or layout.
+- Shared components that render per-screen states take a `testId` prefix input from the caller, so ids stay unique per screen: `{prefix}-{state}` (e.g. `identity-users-error`).
 
 ## Folder rules
 

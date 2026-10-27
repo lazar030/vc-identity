@@ -21,6 +21,7 @@ test.describe('Users list as admin', () => {
     await expect(usersPage.loading).toHaveCount(0);
     await expect(usersPage.rows).toHaveCount(6);
     await expect(usersPage.createButton).toBeVisible();
+    await expect(usersPage.editButtons).toHaveCount(6);
   });
 
   test('shows the empty state when there are no users', async ({ page }) => {
@@ -89,6 +90,7 @@ test.describe('Users list as manager', () => {
     await expect(usersPage.rows).toHaveCount(6);
     await expect(usersPage.readOnlyNote).toBeVisible();
     await expect(usersPage.createButton).toHaveCount(0);
+    await expect(usersPage.editButtons).toHaveCount(0);
   });
 });
 

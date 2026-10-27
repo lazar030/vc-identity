@@ -1,0 +1,23 @@
+<div
+  class="py-8 flex flex-col items-center gap-3 text-center"
+  [attr.role]="role()"
+  [attr.aria-live]="kind() === 'loading' ? 'polite' : null"
+  [attr.data-testid]="testId() + '-' + kind()"
+>
+  @if (kind() === 'loading') {
+    <mat-spinner diameter="24" aria-label="Loading" />
+  }
+
+  <p class="font-medium">{{ resolvedTitle() }}</p>
+
+  @if (resolvedDescription()) {
+    <p class="text-sm text-gray-600 max-w-md">{{ resolvedDescription() }}</p>
+  }
+
+  @if (kind() === 'error') {
+    <button mat-stroked-button (click)="retry.emit()"
+            [attr.data-testid]="testId() + '-retry-button'">
+      {{ retryLabel() }}
+    </button>
+  }
+</div>

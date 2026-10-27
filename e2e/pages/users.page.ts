@@ -10,6 +10,7 @@ export class UsersPage {
   readonly rows: Locator;
   readonly createButton: Locator;
   readonly readOnlyNote: Locator;
+  readonly editButtons: Locator;
 
   constructor(private readonly page: Page) {
     this.loading = page.getByTestId('identity-users-loading');
@@ -21,6 +22,7 @@ export class UsersPage {
     this.rows = page.getByTestId('identity-users-table-row');
     this.createButton = page.getByTestId('identity-users-create-button');
     this.readOnlyNote = page.getByTestId('identity-users-readonly-note');
+    this.editButtons = page.getByTestId('identity-users-table-edit-button');
   }
 
   async goto(): Promise<void> {

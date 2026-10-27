@@ -46,3 +46,9 @@ Thumbs.db
 /playwright-report/
 /blob-report/
 /e2e/.auth/
+
+*storybook.log
+storybook-static
+
+# Compodoc (generated for Storybook docs)
+/documentation.json
