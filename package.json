@@ -45,7 +45,7 @@
     "@storybook/addon-docs": "^9.1.21",
     "@storybook/addon-onboarding": "^9.1.21",
     "@storybook/angular": "^9.1.21",
-    "@storybook/test-runner": "^0.26.0",
+    "@storybook/test-runner": "^0.23.0",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.6.1",
     "concurrently": "^10.0.6",
