@@ -55,3 +55,6 @@ storybook-static
 
 # Visual evidence (generated diffs)
 /evidence/out/
+
+# CI test reports
+/reports/

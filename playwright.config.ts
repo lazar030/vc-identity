@@ -6,7 +6,14 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  reporter: process.env.CI
+    ? [
+        ['list'],
+        ['github'], // failure annotations directly on the PR
+        ['html', { open: 'never' }],
+        ['junit', { outputFile: 'reports/junit.xml' }],
+      ]
+    : [['list'], ['html', { open: 'never' }]],
 
   use: {
     baseURL: 'http://localhost:4200',
@@ -51,7 +58,7 @@ export default defineConfig({
       command: 'npm start',
       url: 'http://localhost:4200',
       reuseExistingServer: !process.env.CI,
-      timeout: 120_000,
+      timeout: 180_000,
     },
   ],
 });

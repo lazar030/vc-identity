@@ -1,0 +1,23 @@
+name: Update visual baselines
+
+on:
+  workflow_dispatch: # manual only: run from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --user 1001
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npx playwright test --project=visual --update-snapshots=all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-visual-baselines
+          path: e2e/**/*-snapshots/*-linux.png
+          retention-days: 7
