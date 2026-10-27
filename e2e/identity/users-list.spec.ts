@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { UsersPage } from '../pages/users.page';
+import { SEED } from '../support/seed';
 
 const USERS_API = '**/api/users';
 
@@ -19,9 +20,9 @@ test.describe('Users list as admin', () => {
     await expect(usersPage.loading).toBeVisible();
     await expect(usersPage.table).toBeVisible();
     await expect(usersPage.loading).toHaveCount(0);
-    await expect(usersPage.rows).toHaveCount(6);
+    await expect(usersPage.rows).toHaveCount(SEED.users.length);
     await expect(usersPage.createButton).toBeVisible();
-    await expect(usersPage.editButtons).toHaveCount(6);
+    await expect(usersPage.editButtons).toHaveCount(SEED.users.length);
   });
 
   test('shows the empty state when there are no users', async ({ page }) => {
@@ -51,7 +52,7 @@ test.describe('Users list as admin', () => {
 
     await usersPage.retryButton.click();
 
-    await expect(usersPage.rows).toHaveCount(6);
+    await expect(usersPage.rows).toHaveCount(SEED.users.length);
     await expect(usersPage.error).toHaveCount(0);
     expect(calls).toBe(2);
   });
@@ -87,7 +88,7 @@ test.describe('Users list as manager', () => {
     const usersPage = new UsersPage(page);
     await usersPage.goto();
 
-    await expect(usersPage.rows).toHaveCount(6);
+    await expect(usersPage.rows).toHaveCount(SEED.users.length);
     await expect(usersPage.readOnlyNote).toBeVisible();
     await expect(usersPage.createButton).toHaveCount(0);
     await expect(usersPage.editButtons).toHaveCount(0);

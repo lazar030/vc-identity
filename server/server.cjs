@@ -1,8 +1,16 @@
 const path = require('path');
 const jsonServer = require('json-server');
 
+const fs = require('fs');
+
 const server = jsonServer.create();
-const router = jsonServer.router(path.join(__dirname, 'db.json'));
+
+const SEED_PATH = path.join(__dirname, 'db.seed.json');
+const readSeed = () => JSON.parse(fs.readFileSync(SEED_PATH, 'utf-8'));
+
+// Passing an object (not a file path) makes json-server keep data in memory.
+// The seed file is never modified; restarting the API always starts clean.
+const router = jsonServer.router(readSeed());
 const db = () => router.db;
 
 server.use(jsonServer.defaults());
@@ -35,6 +43,15 @@ server.post('/api/auth/login', (req, res) => {
   }
   res.json({ token: user.id });
 });
+
+// Test-only: restore the seed. Not registered unless E2E=true.
+if (process.env.E2E === 'true') {
+  server.post('/__test/reset', (req, res) => {
+    router.db.setState(readSeed());
+    res.sendStatus(204);
+  });
+  console.log('E2E mode: POST /__test/reset enabled');
+}
 
 // --- Authentication: everything below requires a valid token -------------
 server.use('/api', (req, res, next) => {

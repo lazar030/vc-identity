@@ -52,3 +52,6 @@ storybook-static
 
 # Compodoc (generated for Storybook docs)
 /documentation.json
+
+# Visual evidence (generated diffs)
+/evidence/out/
