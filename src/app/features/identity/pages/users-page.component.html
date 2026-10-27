@@ -1,0 +1,75 @@
+<section class="flex flex-col gap-4" data-testid="identity-users-page">
+  <header class="flex items-center justify-between">
+    <h2 class="text-xl font-semibold">Users</h2>
+
+    @if (facade.viewState() === 'loaded' || facade.viewState() === 'empty') {
+      <button *vcCan="'users.create'; else readOnly" mat-flat-button
+              data-testid="identity-users-create-button">
+        Create user
+      </button>
+      <ng-template #readOnly>
+        <p class="text-sm text-gray-600" data-testid="identity-users-readonly-note">
+          You can view users but not change them.
+        </p>
+      </ng-template>
+    }
+  </header>
+
+  @switch (facade.viewState()) {
+    @case ('loading') {
+      <div class="flex items-center gap-3 py-8" role="status" aria-live="polite"
+           data-testid="identity-users-loading">
+        <mat-spinner diameter="24" />
+        <span>Loading users…</span>
+      </div>
+    }
+
+    @case ('empty') {
+      <div class="py-8 text-center" data-testid="identity-users-empty">
+        <p class="font-medium">No users yet</p>
+        <p class="text-sm text-gray-600">Users you invite will appear here.</p>
+      </div>
+    }
+
+    @case ('error') {
+      <div class="py-8 text-center flex flex-col items-center gap-3" role="alert"
+           data-testid="identity-users-error">
+        <p>{{ facade.errorMessage() }}</p>
+        <button mat-stroked-button (click)="facade.retry()"
+                data-testid="identity-users-retry-button">
+          Try again
+        </button>
+      </div>
+    }
+
+    @case ('forbidden') {
+      <div class="py-8 text-center" data-testid="identity-users-forbidden">
+        <p class="font-medium">You don't have access to users</p>
+        <p class="text-sm text-gray-600">Ask an administrator if you need access.</p>
+      </div>
+    }
+
+    @case ('loaded') {
+      <table class="w-full text-left" data-testid="identity-users-table">
+        <thead>
+          <tr class="border-b">
+            <th scope="col" class="py-2">Name</th>
+            <th scope="col" class="py-2">Email</th>
+            <th scope="col" class="py-2">Role</th>
+            <th scope="col" class="py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of facade.users(); track user.id) {
+            <tr class="border-b" data-testid="identity-users-table-row">
+              <td class="py-2">{{ user.firstName }} {{ user.lastName }}</td>
+              <td class="py-2">{{ user.email }}</td>
+              <td class="py-2">{{ user.roleId }}</td>
+              <td class="py-2">{{ user.status }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</section>
