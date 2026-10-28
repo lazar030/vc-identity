@@ -11,6 +11,11 @@ export class UsersPage {
   readonly createButton: Locator;
   readonly readOnlyNote: Locator;
   readonly editButtons: Locator;
+  readonly suspendButtons: Locator;
+  readonly suspendDialog: Locator;
+  readonly suspendConfirm: Locator;
+  readonly suspendCancel: Locator;
+  readonly suspendError: Locator;
 
   constructor(private readonly page: Page) {
     this.loading = page.getByTestId('identity-users-loading');
@@ -23,6 +28,21 @@ export class UsersPage {
     this.createButton = page.getByTestId('identity-users-create-button');
     this.readOnlyNote = page.getByTestId('identity-users-readonly-note');
     this.editButtons = page.getByTestId('identity-users-table-edit-button');
+    this.suspendButtons = page.getByTestId('identity-users-table-suspend-button');
+    this.suspendDialog = page.getByRole('dialog');
+    this.suspendConfirm = page.getByTestId('identity-suspend-dialog-confirm-button');
+    this.suspendCancel = page.getByTestId('identity-suspend-dialog-cancel-button');
+    this.suspendError = page.getByTestId('identity-suspend-dialog-error');
+  }
+
+  /** The Suspend button in one user's row, found by its accessible name. */
+  suspendButton(name: string): Locator {
+    return this.page.getByRole('button', { name: `Suspend ${name}` });
+  }
+
+  /** The status pill in one user's row. */
+  statusOf(name: string): Locator {
+    return this.rows.filter({ hasText: name }).getByTestId('identity-users-table-status');
   }
 
   async goto(): Promise<void> {

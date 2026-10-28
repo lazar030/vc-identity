@@ -10,4 +10,8 @@ export class UsersApi {
   list(): Observable<User[]> {
     return this.http.get<User[]>('/api/users');
   }
+
+  update(id: string, changes: Partial<Pick<User, 'status' | 'roleId'>>): Observable<User> {
+    return this.http.patch<User>(`/api/users/${id}`, changes);
+  }
 }

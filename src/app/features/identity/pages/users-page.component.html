@@ -34,7 +34,8 @@
     }
     @case ('loaded') {
       <vc-users-table [users]="facade.users()" [readOnly]="facade.isReadOnly()"
-                      (edit)="onEdit($event)" />
+                      [suspendableIds]="facade.suspendableIds()"
+                      (edit)="onEdit($event)" (suspend)="onSuspend($event)" />
     }
   }
 </section>

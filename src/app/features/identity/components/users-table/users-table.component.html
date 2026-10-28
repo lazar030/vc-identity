@@ -37,7 +37,14 @@
       <th mat-header-cell *matHeaderCellDef scope="col">
         <span class="sr-only">Actions</span>
       </th>
-      <td mat-cell *matCellDef="let user" class="text-right">
+      <td mat-cell *matCellDef="let user" class="text-right whitespace-nowrap">
+        @if (suspendableIds().has(user.id)) {
+          <button mat-button (click)="suspend.emit(user)"
+                  [attr.aria-label]="'Suspend ' + user.firstName + ' ' + user.lastName"
+                  data-testid="identity-users-table-suspend-button">
+            Suspend
+          </button>
+        }
         <button mat-button (click)="edit.emit(user)"
                 [attr.aria-label]="'Edit ' + user.firstName + ' ' + user.lastName"
                 data-testid="identity-users-table-edit-button">

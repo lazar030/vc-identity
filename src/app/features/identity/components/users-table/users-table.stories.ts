@@ -10,7 +10,12 @@ const meta: Meta<UsersTableComponent> = {
   args: {
     users: USERS,
     readOnly: false,
+    suspendableIds: new Set<string>(),
     edit: fn(),
+    suspend: fn(),
+  },
+  argTypes: {
+    suspendableIds: { control: false }, // a Set can't be edited in the Controls panel
   },
 };
 export default meta;
@@ -29,7 +34,19 @@ export const ReadOnly: Story = {
   args: { readOnly: true },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.queryAllByRole('button', { name: /^Edit/ })).toHaveLength(0);
+    await expect(canvas.queryAllByRole('button', { name: /^(Edit|Suspend)/ })).toHaveLength(0);
+  },
+};
+
+export const WithSuspendActions: Story = {
+  // Marko (2) and Luca (4) are suspendable; the facade decides that, the table just renders it.
+  args: { suspendableIds: new Set(['2', '4']) },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getAllByRole('button', { name: /^Suspend/ })).toHaveLength(2);
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Suspend Luca Rossi' }));
+    await expect(args.suspend).toHaveBeenCalledWith(USERS[2]);
   },
 };
 

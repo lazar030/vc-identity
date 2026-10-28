@@ -18,8 +18,11 @@ const STATUS_CLASSES: Record<UserStatus, string> = {
 export class UsersTableComponent {
   readonly users = input.required<User[]>();
   readonly readOnly = input(false);
+  /** Ids of rows that get a Suspend action. Decided by the facade, not here. */
+  readonly suspendableIds = input<ReadonlySet<string>>(new Set());
 
   readonly edit = output<User>();
+  readonly suspend = output<User>();
 
   readonly columns = computed(() =>
     this.readOnly()

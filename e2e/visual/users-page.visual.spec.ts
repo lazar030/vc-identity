@@ -83,3 +83,29 @@ test.describe('users page (agent)', () => {
     await expect(page).toHaveScreenshot('users-forbidden-desktop.png');
   });
 });
+
+test.describe('suspend dialog', () => {
+  test.use({ storageState: 'e2e/.auth/admin.json', viewport: VIEWPORTS.desktop });
+
+  test.beforeEach(async ({ page }) => {
+    await page.route(USERS_API, (route) => route.fulfill({ json: USERS }));
+  });
+
+  test('confirm', async ({ page }) => {
+    await page.goto('/users');
+    await page.getByRole('button', { name: 'Suspend Luca Rossi' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await settle(page);
+    await expect(page).toHaveScreenshot('suspend-dialog-confirm-desktop.png');
+  });
+
+  test('error', async ({ page }) => {
+    await page.route('**/api/users/4', (route) => route.fulfill({ status: 500, json: {} }));
+    await page.goto('/users');
+    await page.getByRole('button', { name: 'Suspend Luca Rossi' }).click();
+    await page.getByTestId('identity-suspend-dialog-confirm-button').click();
+    await expect(page.getByTestId('identity-suspend-dialog-error')).toBeVisible();
+    await settle(page);
+    await expect(page).toHaveScreenshot('suspend-dialog-error-desktop.png');
+  });
+});
