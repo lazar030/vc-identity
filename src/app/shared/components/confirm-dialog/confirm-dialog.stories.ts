@@ -14,7 +14,7 @@ function setup(state: MutationState) {
   const data: ConfirmDialogData = {
     title: 'Suspend Luca Rossi?',
     message: 'They won’t be able to sign in until an administrator reactivates their account.',
-    confirmLabel: 'Suspend',
+    confirmLabel: 'Suspend user',
     pendingLabel: 'Suspending…',
     testId: 'story-dialog',
     state: signal(state),
@@ -51,7 +51,7 @@ export const Idle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Suspend' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Suspend user' }));
     await expect(idle.data.confirm).toHaveBeenCalled();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
@@ -79,7 +79,7 @@ export const ErrorWithRetry: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('alert')).toHaveTextContent('could not be suspended');
-    await expect(canvas.getByRole('button', { name: 'Suspend' })).toBeEnabled();
+    await expect(canvas.getByRole('button', { name: 'Suspend user' })).toBeEnabled();
   },
 };
 

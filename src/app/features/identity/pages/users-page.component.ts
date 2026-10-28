@@ -39,7 +39,7 @@ export class UsersPageComponent implements OnInit {
     const data: ConfirmDialogData = {
       title: `Suspend ${name}?`,
       message: 'They won’t be able to sign in until an administrator reactivates their account.',
-      confirmLabel: 'Suspend',
+      confirmLabel: 'Suspend user',
       pendingLabel: 'Suspending…',
       testId: 'identity-suspend-dialog',
       state: this.facade.suspendState,
